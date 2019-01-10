@@ -1,6 +1,6 @@
 Class {
 	#name : #BaselineOfFlowSwimLane,
-	#superclass : #Object,
+	#superclass : #BaselineOf,
 	#category : #BaselineOfFlowSwimLane
 }
 
