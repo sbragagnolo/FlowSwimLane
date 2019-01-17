@@ -8,7 +8,7 @@ A conditional path represents the connection in between one flow and two others,
 "
 Class {
 	#name : #FLWConditionalTask,
-	#superclass : #FLWAbstractTask,
+	#superclass : #FLWInbetweenTask,
 	#instVars : [
 		'truePath',
 		'falsePath'

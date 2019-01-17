@@ -9,7 +9,7 @@ Each task is defined and configured in terms of the contribution to the system i
 "
 Class {
 	#name : #FLWTask,
-	#superclass : #FLWAbstractTask,
+	#superclass : #FLWInbetweenTask,
 	#instVars : [
 		'flowTask',
 		'isFinalTask',
@@ -103,7 +103,7 @@ FLWTask >> next: aFLWTask [
 
 { #category : #accessing }
 FLWTask >> output [
-	^ output
+	^ self provides first
 ]
 
 { #category : #'as yet unclassified' }

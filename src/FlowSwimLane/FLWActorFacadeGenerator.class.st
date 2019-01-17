@@ -43,7 +43,7 @@ FLWActorFacadeGenerator >> generateActor: aFLWActor named: aTraitName inPackage:
 
 { #category : #'as yet unclassified' }
 FLWActorFacadeGenerator >> generateConditionalTaskMethod: aFLWTask [
-	aFLWTask requirements isEmpty
+	aFLWTask requires isEmpty
 		ifTrue: [ ^ '{1}
     <task: #{2}>
 	" Expected to create and return boolean "
@@ -60,12 +60,12 @@ FLWActorFacadeGenerator >> generateConditionalTaskMethod: aFLWTask [
 				format:
 					{aFLWTask name uncapitalized.
 					aFLWTask name.
-					aFLWTask requirements first name} ]
+					aFLWTask requires first name} ]
 ]
 
 { #category : #'as yet unclassified' }
 FLWActorFacadeGenerator >> generateCreationTaskMethod: aFLWTask [
-	aFLWTask requirements isEmpty
+	aFLWTask requires isEmpty
 		ifTrue: [ ^ '{1}
     <task: #{3}>
 	" Expected to create and return a {2} "
@@ -84,12 +84,12 @@ FLWActorFacadeGenerator >> generateCreationTaskMethod: aFLWTask [
 					{aFLWTask name uncapitalized.
 					aFLWTask output name capitalized.
 					aFLWTask name.
-					aFLWTask requirements first name} ]
+					aFLWTask requires first name} ]
 ]
 
 { #category : #'as yet unclassified' }
 FLWActorFacadeGenerator >> generateFinalTaskMethod: aFLWTask [
-	aFLWTask requirements isEmpty
+	aFLWTask requires isEmpty
 		ifTrue: [ ^ '{1}
     <task: #{2}>
 	 self required.
@@ -104,7 +104,7 @@ FLWActorFacadeGenerator >> generateFinalTaskMethod: aFLWTask [
 				format:
 					{aFLWTask name uncapitalized.
 					aFLWTask name.
-					aFLWTask requirements first name} ]
+					aFLWTask requires first name} ]
 ]
 
 { #category : #'as yet unclassified' }

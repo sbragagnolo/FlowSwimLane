@@ -7,15 +7,15 @@ Class {
 		'orderOfService',
 		'customer',
 		'contract',
-		'contractsManager',
 		'invoice',
-		'paymentsManager',
 		'paymentNote',
 		'orderOfServiceGranting',
 		'serviceManager',
 		'grantAccessReferral',
 		'rejectPaymentReferral',
-		'rejectContractReferral'
+		'rejectContractReferral',
+		'contractManager',
+		'paymentManager'
 	],
 	#category : #'FlowSwimLane-Test'
 }
@@ -26,9 +26,9 @@ FLWExampleTestBuild >> contract [
 ]
 
 { #category : #accessing }
-FLWExampleTestBuild >> contractsManager [
-	^ contractsManager
-		ifNil: [ contractsManager := builder createAndRegisterRole: #ContractsManager ]
+FLWExampleTestBuild >> contractManager [
+	^ contractManager
+		ifNil: [ contractManager := builder createAndRegisterRole: #ContractManager ]
 ]
 
 { #category : #accessing }
@@ -36,7 +36,7 @@ FLWExampleTestBuild >> customer [
 	^ customer ifNil: [  customer := builder createAndRegisterRole: #Customer ]
 ]
 
-{ #category : #accessor }
+{ #category : #accessing }
 FLWExampleTestBuild >> customerData [
 	^ customerData ifNil: [ customerData := builder createAndRegisterParameter: #CustomerData ]
 ]
@@ -70,14 +70,14 @@ FLWExampleTestBuild >> orderOfServiceGranting [
 ]
 
 { #category : #accessing }
-FLWExampleTestBuild >> paymentNote [
-	^ paymentNote ifNil: [ paymentNote := builder createAndRegisterDocument: #PaymentNote ]
+FLWExampleTestBuild >> paymentManager [
+	^ paymentManager
+		ifNil: [ paymentManager := builder createAndRegisterRole: #PaymentManager ]
 ]
 
 { #category : #accessing }
-FLWExampleTestBuild >> paymentsManager [
-	^ paymentsManager
-		ifNil: [ paymentsManager := builder createAndRegisterRole: #PaymentsManager ]
+FLWExampleTestBuild >> paymentNote [
+	^ paymentNote ifNil: [ paymentNote := builder createAndRegisterDocument: #PaymentNote ]
 ]
 
 { #category : #accessing }
@@ -107,7 +107,7 @@ FLWExampleTestBuild >> testingExample [
 	(builder addTaskNamed: #CreateContract)
 		requires: self orderOfService;
 		creates: self contract;
-		assignedTo: self contractsManager.
+		assignedTo: self contractManager.
 	(builder
 		addConditionalTaskNamed: #IfAcceptsContract
 		ifTrue: [ :ifAcceptsContract | 
@@ -117,7 +117,7 @@ FLWExampleTestBuild >> testingExample [
 					(ifAcceptsContract addTaskNamed: #BillCustomer)
 						requires: self contract;
 						creates: self invoice;
-						assignedTo: self paymentsManager.
+						assignedTo: self paymentManager.
 					(ifAcceptsContract addTaskNamed: #Pay)
 						requires: self invoice;
 						creates: self paymentNote;
@@ -127,7 +127,7 @@ FLWExampleTestBuild >> testingExample [
 						ifTrue: [ :ifAcceptsPayment | 
 									(ifAcceptsPayment addTaskNamed: #RequireGrantAccessService)
 										requires: self paymentNote;
-										assignedTo: self paymentsManager;
+										assignedTo: self paymentManager;
 										creates: self orderOfServiceGranting.
 									(ifAcceptsPayment addTaskNamed: #GrantAccess)
 										requires: self orderOfServiceGranting;
@@ -141,12 +141,12 @@ FLWExampleTestBuild >> testingExample [
 						ifFalse: [ :ifRejectsPayment | 
 										(ifRejectsPayment addTaskNamed: #RejectPayment)
 											requires: self paymentNote;
-											assignedTo: self paymentsManager;
+											assignedTo: self paymentManager;
 											creates: self rejectPaymentReferral.
 										(ifRejectsPayment addTaskNamed: #NotePaymentReject)
 											requires: self rejectPaymentReferral;
 											assignedTo: self customer;
-											beFinalTask ]) 	requires: self paymentNote; assignedTo: self paymentsManager 
+											beFinalTask ]) 	requires: self paymentNote; assignedTo: self paymentManager 
 						]
 		ifFalse: [ : ifRejectsContract | 
 			
@@ -156,7 +156,7 @@ FLWExampleTestBuild >> testingExample [
 							creates: self rejectContractReferral.
 						(ifRejectsContract addTaskNamed: #NoteContractReject)
 							requires: self rejectContractReferral;
-							assignedTo: self contractsManager;
+							assignedTo: self contractManager;
 							beFinalTask .
 			
 		]) 	requires: self contract; assignedTo: self customer.

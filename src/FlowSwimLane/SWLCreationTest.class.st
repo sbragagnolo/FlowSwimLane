@@ -92,8 +92,8 @@ SWLCreationTest >> testACreationTaskMayRequireDocuments [
 		yourself.
 	builder build.
 	self assert: task isTransformationTask.
-	self assert: (task requirements includes: document).
-	self assert: task requirements size equals: 1
+	self assert: (task requires includes: document).
+	self assert: task requires size equals: 1
 ]
 
 { #category : #'test task' }
@@ -110,7 +110,7 @@ SWLCreationTest >> testACreationTaskMayRequireParameters [
 		yourself.
 	builder build.
 	self assert: task isCreationTask .
-	self assert: (task requirements includes: parameter)
+	self assert: (task requires includes: parameter)
 ]
 
 { #category : #'test task' }

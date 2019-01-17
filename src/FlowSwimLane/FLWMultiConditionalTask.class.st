@@ -8,7 +8,7 @@ A conditional path represents the connection in between one flow and n others, r
 "
 Class {
 	#name : #FLWMultiConditionalTask,
-	#superclass : #FLWAbstractTask,
+	#superclass : #FLWInbetweenTask,
 	#instVars : [
 		'cases'
 	],

@@ -104,7 +104,7 @@ FLWFlowBuilder >> ensureFlowIntegrity: aFlow with: trackedDocuments [
 					task isFinalTask
 						ifTrue: [ self assert: task output isNil ].
 					task isCreationTask
-						ifTrue: [ self assert: task requirements size <= 1.
+						ifTrue: [ self assert: task requires size <= 1.
 							trackedDocuments
 								at: task output
 								ifPresent: [ :t | 
@@ -120,7 +120,7 @@ FLWFlowBuilder >> ensureFlowIntegrity: aFlow with: trackedDocuments [
 												, task name ] ].
 					task isConditionalTask
 						ifTrue: [ task flows do: [ :f | self ensureFlowIntegrity: f with: trackedDocuments copy ] ].
-					task requirements
+					task requires
 						select: #isDocument
 						thenDo: [ :r | 
 							trackedDocuments

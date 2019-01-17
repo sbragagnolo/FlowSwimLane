@@ -29,10 +29,10 @@ FLWVisitingWorkflowBuilder >> initialize [
 
 { #category : #visiting }
 FLWVisitingWorkflowBuilder >> visitConditionalTask: aFLWConditionalTask [
-	self assert: aFLWConditionalTask requirements size = 1.
+	self assert: aFLWConditionalTask requires size = 1.
 	builder
 		then: aFLWConditionalTask assignedTo name
-		with: aFLWConditionalTask requirements first name
+		with: aFLWConditionalTask requires first name
 		decides: aFLWConditionalTask name
 		ifTrue: [ :ifTrue | 
 			| sub |
@@ -56,13 +56,13 @@ FLWVisitingWorkflowBuilder >> visitTask: aFLWTask [
 	| step |
 	aFLWTask isStartingTask 
 		ifFalse: [ " Not yet generalized "
-			self assert: aFLWTask requirements size < 2.
+			self assert: aFLWTask requires size < 2.
 			step := builder newStepOfClass: aFLWTask flowTask.
 			step responsible: aFLWTask assignedTo name.
-			aFLWTask requirements isEmpty
+			aFLWTask requires isEmpty
 				ifTrue: [ aFLWTask isFinalTask
 						ifFalse: [ step input: aFLWTask output name ] ]
-				ifFalse: [ step input: aFLWTask requirements first name ].
+				ifFalse: [ step input: aFLWTask requires first name ].
 			step task: aFLWTask name.
 			aFLWTask isFinalTask
 				ifFalse: [ step output: aFLWTask output name ].

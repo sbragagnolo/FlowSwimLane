@@ -14,8 +14,7 @@ Class {
 	#instVars : [
 		'name',
 		'flow',
-		'assignedTo',
-		'requires'
+		'assignedTo'
 	],
 	#category : #'FlowSwimLane-Kernel'
 }
@@ -43,12 +42,6 @@ FLWAbstractTask >> flow: aFLWFlow [
 { #category : #testing }
 FLWAbstractTask >> hasNext [
 	^ self subclassResponsibility
-]
-
-{ #category : #flow }
-FLWAbstractTask >> initialize [
-	super initialize.
-	requires := OrderedCollection new
 ]
 
 { #category : #flow }
@@ -93,20 +86,4 @@ FLWAbstractTask >> printOn: aStream [
 		nextPut: $(;
 		nextPutAll: name;
 		nextPut: $)
-]
-
-{ #category : #accessing }
-FLWAbstractTask >> requirements [
-	^ requires 
-]
-
-{ #category : #accessing }
-FLWAbstractTask >> requires [
-	^ requires
-]
-
-{ #category : #accessing }
-FLWAbstractTask >> requires: aFLWDocumentOrParameter [
-
-	requires add: aFLWDocumentOrParameter
 ]
