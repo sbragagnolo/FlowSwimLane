@@ -10,7 +10,7 @@ BaselineOfFlowSwimLane >> baseline: spec [
 	spec
 		for: #common
 		do: [ spec
-				baseline: #TaskIt with: [ spec repository: 'github://sbragagnolo/taskit:dev-1.1' ];
+				baseline: #TaskIt with: [ spec repository: 'github://sbragagnolo/taskit' ];
 				baseline: #RunnableWorkflow with: [ spec repository: 'github://sbragagnolo/RunnableWorkflow/src' ].
 			spec package: #FlowSwimLane with: [ spec requires: #('TaskIt' RunnableWorkflow) ] ]
 ]
